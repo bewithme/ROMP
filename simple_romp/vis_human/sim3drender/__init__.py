@@ -1,3 +1,3 @@
 # coding: utf-8
 
-from .renderer import Sim3DR
+from vis_human.sim3drender.renderer import Sim3DR

@@ -137,12 +137,12 @@ class BEV(Base):
     
     def parsing_trans3D(self, center_maps_3d, cam_maps_3d):
         detection_flag = torch.Tensor([False for _ in range(len(center_maps_3d))]).cuda()
-        center_preds_info_3d = self._result_parser.centermap_parser.parse_3dcentermap_heatmap_adaptive_scale_batch(center_maps_3d)
+        center_preds_info_3d = self._result_parser.center_map_parser.parse_3dcentermap_heatmap_adaptive_scale_batch(center_maps_3d)
         pred_batch_ids, pred_czyxs, top_score = center_preds_info_3d
         detection_flag[pred_batch_ids] = True
         
         if len(pred_czyxs)==0:
-            center_preds_info_3d = self._result_parser.centermap_parser.parse_3dcentermap_heatmap_adaptive_scale_batch(center_maps_3d, top_n_people=1)
+            center_preds_info_3d = self._result_parser.center_map_parser.parse_3dcentermap_heatmap_adaptive_scale_batch(center_maps_3d, top_n_people=1)
             pred_batch_ids, pred_czyxs, top_score = center_preds_info_3d
         
         return center_preds_info_3d, detection_flag
