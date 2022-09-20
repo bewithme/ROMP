@@ -1,20 +1,15 @@
-FROM python:3.7.13-slim-buster
+FROM bewithmeallmylife/romp-runtime:1.0.0
 
-RUN apt-get update -y
-RUN apt install gcc g++ git wget -y
-RUN apt-get install ffmpeg libsm6 libxext6  -
-RUN pip install setuptools cython numpy
+USER root
+WORKDIR /app/ROMP
+ADD configs configs
+ADD romp romp
+ADD simple_romp simple_romp
+ADD model  /home/qtuser/.romp
 
-WORKDIR /workspace
-RUN git clone https://github.com/Arthur151/ROMP.git
+WORKDIR /app/ROMP/simple_romp
+RUN python3 setup.py install
 
-WORKDIR /workspace/ROMP/simple_romp
-RUN python setup.py install
-
-# run this part to download weights automaticly
-WORKDIR /
-RUN wget http://im.rediff.com/sports/2011/aug/13pic1.jpg
-RUN romp --mode=image --input 13pic1.jpg -o . --render_mesh
-RUN romp --mode=image --input 13pic1.jpg -o . --render_mesh --onnx
-
-ENTRYPOINT [ "romp" ]
+CMD ["python3","romp/main.py","--mode=webcam","--show"]
+#sudo docker build -t='bewithmeallmylife/romp-app:1.0.0' .
+#sudo docker run --net=host --name romp-app --gpus '"device=0"' --privileged --rm -it -v /dev/video0:/dev/video0 -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY  -u qtuser bewithmeallmylife/romp-app:1.0.0

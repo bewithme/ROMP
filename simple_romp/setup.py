@@ -9,7 +9,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 requireds = ["opencv-python","torch",
         'setuptools>=18.0.0',
         'cython',
-        'numpy>=1.21.0',
+        'numpy',
         'typing-extensions>=4.1'
         'scipy',
         'lap']
@@ -23,7 +23,7 @@ setuptools.setup(
         # Setuptools 18.0 properly handles Cython extensions.
         'setuptools>=18.0.0',
         'cython',
-        'numpy>=1.21.0',
+        'numpy',
         'typing-extensions>=4.1'
         'scipy',
         'lap'
@@ -32,15 +32,8 @@ setuptools.setup(
     description="ROMP: Monocular, One-stage, Regression of Multiple 3D People, ICCV21",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/Arthur151/ROMP",
-    packages=[
-        'romp',
-        'vis_human',
-        'vis_human.sim3drender',
-        'vis_human.sim3drender.lib',
-        'bev',
-        'tracker',
-    ],
+    url="",
+    packages=setuptools.find_packages(),
     ext_modules=cythonize([Extension("Sim3DR_Cython",
                            sources=["vis_human/sim3drender/lib/rasterize.pyx",
                                     "vis_human/sim3drender/lib/rasterize_kernel.cpp"],
@@ -54,7 +47,7 @@ setuptools.setup(
          "Operating System :: OS Independent",
     ],
     project_urls={
-        "Bug Tracker": "https://github.com/Arthur151/ROMP/issues",
+        "Bug Tracker": "",
     },
     entry_points={
         "console_scripts": [
