@@ -60,7 +60,11 @@ Please refer to [romp_evaluation.md](docs/romp_evaluation.md) and [bev_evaluatio
 
 ### Docker usage
 
-Please refer to [docker.md](docs/docker.md)
+
+```shell
+sudo docker run --net=host --name romp-app --gpus '"device=0"' --privileged --rm -it -v /dev/video0:/dev/video0 -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY  -u qtuser bewithmeallmylife/romp-app:1.0.0
+
+```
 
 ### Bugs report
 
